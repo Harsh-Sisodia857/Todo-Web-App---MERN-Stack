@@ -6,8 +6,29 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET = "HarshWantsToBeWebDeveloper";
 
 
-module.exports.login = function (req, res) {
-    res.send('Login')
+module.exports.login =async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const { email, password } = req.body;
+    let user =await User.findOne({ email });
+    if (!user) {
+        return res.status(400).json({ Error: "User does not exists" });
+    }
+    const passwordCompare = await bcrypt.compare(password, user.password);
+    if (!passwordCompare) {
+        return res.status(400).json({ error: "Please login with correct credentials" });
+    }
+    // ---- sending auth token to the authorized user
+    const data = {
+        user: {
+            id: user.id
+        }
+    }
+    const authtoken = jwt.sign(data, JWT_SECRET);
+    res.json({ authtoken })
+    // ------------
 }
 
 //createUser
@@ -36,6 +57,8 @@ module.exports.signup =async function (req, res) {
         password: secPass,
         dueDate: req.body.dueDate
     });
+
+    //----- No need for signup -- just for checking the response in thunderclient
     const data = {
         user: {
             id: user.id
@@ -44,4 +67,5 @@ module.exports.signup =async function (req, res) {
     // implementing jsonwebtoken npm package which helps to validate authentic user
     const authToken = jwt.sign(data, JWT_SECRET);
     res.json({ authToken })
+    //---------- 
 }
