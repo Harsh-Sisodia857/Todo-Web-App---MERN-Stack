@@ -55,7 +55,6 @@ module.exports.signup =async function (req, res) {
         name: req.body.name,
         email: req.body.email,
         password: secPass,
-        dueDate: req.body.dueDate
     });
 
     //----- No need for signup -- just for checking the response in thunderclient

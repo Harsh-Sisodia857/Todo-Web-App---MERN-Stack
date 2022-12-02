@@ -14,10 +14,6 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
-    },
-    dueDate: {
-        type: Date,
-        default: Date.now
     }
 }, {
     timestamps : true

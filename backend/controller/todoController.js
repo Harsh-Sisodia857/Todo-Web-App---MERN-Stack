@@ -1,3 +1,5 @@
-module.exports.tasks = function (req, res) {
-    res.send("Tasks")
+const Todo = require("../models/Todo")
+
+module.exports.createTasks = async function (req, res) {
+   
 }
