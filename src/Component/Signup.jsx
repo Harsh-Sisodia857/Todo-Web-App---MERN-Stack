@@ -17,7 +17,7 @@ const Signup = () => {
     if (password !== cpassword) {
         toast("Password does not match");
     } else {
-      const response = await fetch("http://localhost:8000/user", {
+      const response = await fetch("http://localhost:5000/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

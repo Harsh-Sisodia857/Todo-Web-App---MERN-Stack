@@ -20,7 +20,8 @@ module.exports.createTask =async (req, res) => {
         const task = await Todo.create({
             description: req.body.description,
             category: req.body.category,
-            user : req.user.id
+            user: req.user.id,
+            dueDate : req.body.dueDate
         })
         return res.json({ task })
     } catch (err) {
