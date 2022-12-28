@@ -40,31 +40,30 @@ module.exports.deleteTask = (req, res) => {
         Todo.findByIdAndDelete(id, function (err) {
             if (err) {
                 console.log('error : ', err)
+                return;
             }
         })
     // }
-    return res.json(`Task having ${id} is deleted`);
+    return res.json(200,{message : `Task having ${id} is deleted`});
 }
 
 
-// module.exports.updateTask = (req, res) => {
-//     try {
-//         const { edescription, ecategory, edeadline } = req.body;
-//         const newTask = {}
-//         if (edescription) { newTask.edescription = edescription };
-//         if (ecategory) { newTask.ecategory = ecategory };
-//         if (edeadline) { newTask.edeadline = edeadline };
+module.exports.updateTask =async (req, res) => {
+    try {
+        const { edescription, ecategory, edueDate } = req.body;
+        const newTask = {}
+        if (edescription) { newTask.edescription = edescription };
+        if (ecategory) { newTask.ecategory = ecategory };
+        if (edueDate) { newTask.edueDate = edueDate };
 
-//         // Find the task to be updated and update it
-//         let task = Todo.findById(req.params.id);
-//         if (!task) { return res.status(404).send("Not Found") }
-//         // User who updating the task == User who create the task
-
-//         task = Todo.findByIdAndUpdate(req.params.id, { $set: newTask }, { new: true })
-//         secondary.addEventListener("click", someSecondaryFunction, false);
-//         res.json({ task });
-//     } catch (err) {
-//         console.error(err.message)
-//         res.status(500).send("Internal Server Error")
-//     }
-// }
+        // Find the task to be updated and update it
+        let task = await Todo.findById(req.params.id);
+        if (!task) { return res.status(404).send("Not Found") }
+        
+        task =await Todo.findByIdAndUpdate(req.params.id, { $set: {description : newTask.edescription,category : newTask.ecategory,dueDate : newTask.edueDate} });
+        return res.json({ task });
+    } catch (err) {
+        console.error(err.message)
+        return res.status(500).json({"Internal Server Error" : err})
+    }
+}

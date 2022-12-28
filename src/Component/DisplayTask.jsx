@@ -7,26 +7,26 @@ import { toast } from "react-toastify";
 function DisplayTask() {
   const [tasks, setTasks] = useState([]);
  
-  // const deleteNote = async (id) => {
-  //   // API CALL
-  //   const response = await fetch(
-  //     `http://localhost:5000/user/deletetask/?id=${id}`,
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "auth-token": localStorage.getItem("token"),
-  //       },
-  //     }
-  //   );
-  //   const json = await response.json();
-  //   console.log(json);
-  //   const newTasks = tasks.filter((t) => {
-  //     return t._id !== id;
-  //   });
-  //   toast("Task is Deleted");
-  //   setTasks(newTasks);
-  // };
+  const deleteTask = async (id) => {
+    // API CALL
+    const response = await fetch(
+      `http://localhost:5000/user/deletetask/?id=${id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const json = await response.json();
+    console.log(json);
+    const newTasks = tasks.tasks.filter((t) => {
+      return t._id !== id;
+    });
+    toast("Task is Deleted");
+    setTasks(newTasks);
+  };
 
    useEffect(() => {
      if (localStorage.getItem("token")) {
@@ -57,9 +57,11 @@ function DisplayTask() {
               <Tasks
                 key={t._id}
                 description={t.description}
-                  category={t.category}
+                category={t.category}
                 deadline = {t.dueDate}
-                user={t.user}
+                  user={t.user}
+                  idOfTask = {t._id}
+                handleDelete = {deleteTask}
               />
               </div>
             );
