@@ -60,10 +60,11 @@ module.exports.updateTask =async (req, res) => {
         let task = await Todo.findById(req.params.id);
         if (!task) { return res.status(404).send("Not Found") }
         
-        task =await Todo.findByIdAndUpdate(req.params.id, { $set: {description : newTask.edescription,category : newTask.ecategory,dueDate : newTask.edueDate} });
+        task = await Todo.findByIdAndUpdate(req.params.id, { $set: { description: newTask.edescription, category: newTask.ecategory, dueDate: newTask.edueDate } }, { new: true });
+        console.log(task);
         return res.json({ task });
     } catch (err) {
-        console.error(err.message)
-        return res.status(500).json({"Internal Server Error" : err})
+        console.error(err.message);
+        return res.status(500).json({ "Internal Server Error": err });
     }
 }

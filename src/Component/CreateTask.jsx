@@ -1,47 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
+import TaskContext from "./Context/TaskContext";
+import Joi from "joi-browser";
+
 
 const AddNote = () => {
+  const context = useContext(TaskContext);
   const [tasks, setTask] = useState({
     description: "",
     category: "Public",
-    dueDate : ""
+    dueDate: "",
   });
 
-  const handleClick = (e) => {
+  const [error, setError] = useState(""); // State to track form error
+
+  const { createTask } = context;
+
+  const schema = Joi.object({
+    description: Joi.string().min(5).required().label("Description"),
+    category: Joi.string()
+      .valid("Public", "Personal", "College", "Work")
+      .required().label("Category"),
+    dueDate: Joi.date().required().label("Due Date"),
+  });
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate the task using the schema
+    const { error } = schema.validate(tasks, { abortEarly: false });
+    console.log(error);
+    if (error) {
+      setError(error.details[0].message);
+      const formErrors = {};
+      for (const err of error.details) {
+        toast(err.message);
+        formErrors[err.path[0]] = err.message;
+      }
+      return;
+    }
+
     // Add Task logic
     createTask(tasks.description, tasks.category, tasks.dueDate);
+    toast("Task Created !!");
     console.log(tasks);
     setTask({
       description: "",
       category: "Public",
-      dueDate : ""
+      dueDate: "",
     });
+    setError("");
     console.log(tasks);
   };
 
-   const createTask = async (description, category,dueDate) => {
-        //  API CALL
-        const response = await fetch("http://localhost:5000/user/createtask", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": localStorage.getItem("token"),
-          },
-          body: JSON.stringify({ description, category, dueDate }),
-        });
-      toast("Task Added")
-      const task = await response.json();
-      setTask({...tasks,...task});
-    }
-  
   const onChange = (e) => {
     setTask({ ...tasks, [e.target.name]: e.target.value });
+    setError("");
   };
   return (
     <div className="container">
-      <form className="my-3">
+      <form className="my-3" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
@@ -54,7 +72,6 @@ const AddNote = () => {
             onChange={onChange}
             minLength={5}
             value={tasks.description}
-            required
           />
         </div>
         <div className="mb-3">
@@ -75,7 +92,9 @@ const AddNote = () => {
             onChange={onChange}
           >
             <option value="Personal">Personal</option>
-            <option value="Public" defaultChecked>Public</option>
+            <option value="Public" defaultChecked>
+              Public
+            </option>
             <option value="College">College</option>
             <option value="Work">Work</option>
           </select>
@@ -97,12 +116,7 @@ const AddNote = () => {
             name="dueDate"
           />
         </div>
-        <button
-          disabled={tasks.description.length < 5}
-          type="submit"
-          onClick={handleClick}
-          className="btn btn-primary"
-        >
+        <button type="submit" className="btn btn-primary">
           Add task
         </button>
       </form>
