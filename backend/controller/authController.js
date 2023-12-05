@@ -29,8 +29,7 @@ module.exports.login =async function (req, res) {
         }
     }
     const authtoken = jwt.sign(data, JWT_SECRET);
-    success = true;
-    res.json({ success, authtoken })
+    res.json({ success : true, authtoken })
     // ------------
 }
 
@@ -52,7 +51,7 @@ module.exports.signup =async function (req, res) {
     // Instead of getting error in console of unique user handle it
     let user = await User.findOne({ email: req.body.email })
     if (user) {
-        return res.status(400).json({error : "User with this email exists"})
+        return res.status(400).json({ error: "User with this email exists",success : false });
     }
     user = await User.create({
         name: req.body.name,
@@ -68,6 +67,9 @@ module.exports.signup =async function (req, res) {
     }
     // implementing jsonwebtoken npm package which helps to validate authentic user
     const authToken = jwt.sign(data, JWT_SECRET);
-    res.json({ authToken })
+    res.json({
+        success : true,
+        authToken
+    })
     //---------- 
 }

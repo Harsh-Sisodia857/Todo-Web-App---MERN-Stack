@@ -36,6 +36,9 @@ const Signup = () => {
         navigate("/");
       } else {
         toast.error(json.error);
+        if (json.error === "User with this email exists") {
+            navigate("/auth/login");
+        }
       }
     }
   };

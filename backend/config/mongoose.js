@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://0.0.0.0/todoWebApp")
+mongoose.connect("mongodb+srv://harshkumarsisodia99:yimjXg3xRfNGOEGD@cluster0.ks55g6u.mongodb.net/todoWebApp")
 
 const db = mongoose.connection;
 
