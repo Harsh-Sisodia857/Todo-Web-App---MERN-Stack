@@ -15,11 +15,11 @@ function Tasks({ idOfTask, description, user, category, deadline }) {
     ecategory: category,
     edueDate: deadline,
   });
-const handleClick = (e) => {
-  editTask(id, formData.description, formData.category, formData.dueDate);
-  toast("Task Updated");
-  refClose.current.click();
-};
+  const handleClick = (e) => {
+    editTask(id, formData.edescription, formData.ecategory, formData.edueDate);
+    toast("Task Updated");
+    refClose.current.click();
+  };
 
   const handleShowModal = (id) => {
     ref.current.click();
@@ -77,19 +77,20 @@ const handleClick = (e) => {
             <div className="modal-body">
               <form className="my-3">
                 <div className="mb-3">
-                  <label htmlFor="ecategory" className="form-label">
-                    Category
-                  </label>
-                  <input
+                  <select
                     type="text"
-                    className="form-control"
                     id="ecategory"
                     name="ecategory"
-                    onChange={onChange}
-                    aria-describedby="emailHelp"
+                    placeholder="Choose a category"
+                    className="form-select"
                     value={formData.ecategory}
-                    minLength={5}
-                  />
+                    onChange={onChange}
+                  >
+                    <option value="Personal">Personal</option>
+                    <option value="Public">Public</option>
+                    <option value="College">College</option>
+                    <option value="Work">Work</option>
+                  </select>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="edescription" className="form-label">
@@ -106,10 +107,7 @@ const handleClick = (e) => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label
-                    htmlFor="edueDate"
-                    className="form-input form-label"
-                  >
+                  <label htmlFor="edueDate" className="form-input form-label">
                     Due Date
                   </label>
                   <input

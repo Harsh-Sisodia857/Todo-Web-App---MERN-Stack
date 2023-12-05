@@ -23,13 +23,13 @@ function DisplayTask() {
     // eslint-disable-next-line
   }, []);
 
-  console.log("TASKS : ", Tasks.tasks);
+  // console.log("TASKS : ", Tasks.tasks);
   return (
     <>
  
       <div className="container mt-5">
         <div className="row">
-          {Tasks.tasks ? (
+          {Tasks.tasks && Tasks.tasks.length > 0 ? (
             Tasks.tasks.map((t) => {
               return (
                 <div className="col-md-4">

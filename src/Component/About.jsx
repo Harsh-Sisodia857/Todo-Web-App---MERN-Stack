@@ -2,8 +2,8 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className="about-us">
-      <h1>About Us</h1>
+    <div className="about-us container">
+      <h1 className="my-4">About Us</h1>
       <p>
         Welcome to our website! We are a team of passionate developers who love
         building amazing web applications with React. Our goal is to create

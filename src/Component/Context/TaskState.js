@@ -21,6 +21,9 @@ const TaskState = (props) => {
         setTasks(task);
     };
 
+    useEffect(() => {
+        fetchTasks()
+    }, [Tasks]);
 
     const createTask = async (description, category, dueDate) => {
         //  API CALL
@@ -58,7 +61,11 @@ const TaskState = (props) => {
     };
 
 
-    const editTask = async (id,description,category, dueDate) => {
+    const editTask = async (id, description, category, dueDate) => {
+        console.log(id)
+        console.log(description)
+        console.log(category)
+        console.log(dueDate)
         // API CALL
         const response = await fetch(
             `http://localhost:5000/user/updatetask/${id}`,
