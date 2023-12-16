@@ -1,70 +1,58 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#  Todo Web Application
 
-## Available Scripts
+The Todo Web Application is a full-stack MERN (MongoDB, Express.js, React, Node.js) application designed to help users manage their tasks efficiently. It provides a user-friendly interface to create, read, update, and delete tasks. The application includes authentication features, allowing users to securely log in and sign up. Additionally, authentication can be conveniently done through Google accounts.
 
-In the project directory, you can run:
+**Features:**
 
-### `npm start`
+**CRUD OPERATIONS : **
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Create Task:** Users can easily create new tasks by providing task details.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Read Task:** The application displays an organized list of tasks for users to view and manage.
 
-### `npm test`
+**Update Task:** Users can edit task details or update the task status as needed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Delete Task:** Tasks that are no longer needed can be deleted, helping users keep their task list tidy.
+Database Integration:
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Authentication:**
+Users can create accounts by signing up with a unique username and password.
+Authentication is also supported through Google accounts, providing a quick and secure login option.
+Task Management:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The application utilizes MongoDB as its database, ensuring data persistence and efficient task management.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+How to Run:
+Clone the repository.
+Navigate to the frontend and backend directories and run npm install to install dependencies.
+Start the backend server using npm start in the backend directory.
+Start the frontend development server using npm start in the frontend directory.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Tech Stack
+**Frontend:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**React Js:** A JavaScript library for building user interfaces.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Backend:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Node.js:** A JavaScript runtime for server-side development.
+**Express.js:** A web application framework for Node.js.
 
-## Learn More
+**MongoDB:** A NoSQL database for storing and retrieving task data.
+**Authentication:** using **jsonwebtoken:** 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## How to Run:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Clone the repository.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+  1) Navigate to the frontend and backend directories and run npm  install to install dependencies.
+  2) Start the backend server using npm start in the backend directory.
+  3) Start the frontend development server using npm start in the frontend and backend directory.
+```
+    
