@@ -54,8 +54,22 @@ const AddNote = () => {
   };
 
   const onChange = (e) => {
-    setTask({ ...tasks, [e.target.name]: e.target.value });
-    setError("");
+      const { name, value } = e.target;
+
+      // Special handling for dueDate to check if it's greater than today
+      if (name === "dueDate") {
+        const selectedDate = new Date(value);
+        const today = new Date();
+
+        if (selectedDate <= today) {
+          toast("Due date must be greater than today");
+          return;
+        }
+      }
+
+      setTask({ ...tasks, [name]: value });
+      setError("");
+
   };
   return (
     <div className="container">

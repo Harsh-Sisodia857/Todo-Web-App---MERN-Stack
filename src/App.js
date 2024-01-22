@@ -23,7 +23,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/user/createtask" element={<CreateTask />} />
         <Route path="/auth/login" element={<Login />} />
-        <Route path="/user" element={<Signup />} />
+        <Route path="/auth/signup" element={<Signup />} />
       </Routes>
     </div>
   );

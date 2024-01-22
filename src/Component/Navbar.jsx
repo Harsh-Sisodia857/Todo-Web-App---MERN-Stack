@@ -46,7 +46,7 @@ function Navbar() {
                 >
                   Log In
                 </Link>
-                <Link to="/user" role="button" className="mx-2 btn btn-primary">
+                <Link to="/auth/signup" role="button" className="mx-2 btn btn-primary">
                   Sign Up
                 </Link>
               </div>
