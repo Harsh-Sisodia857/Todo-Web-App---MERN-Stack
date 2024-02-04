@@ -2,17 +2,19 @@ import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import TaskContext from "./Context/TaskContext";
 import Joi from "joi-browser";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "../index.css"
 
 const AddNote = () => {
   const context = useContext(TaskContext);
   const [tasks, setTask] = useState({
     description: "",
     category: "Public",
-    dueDate: "",
+    dueDate: new Date(),
   });
 
-  const [error, setError] = useState(""); // State to track form error
+  const [error, setError] = useState("");
 
   const { createTask } = context;
 
@@ -20,7 +22,8 @@ const AddNote = () => {
     description: Joi.string().min(5).required().label("Description"),
     category: Joi.string()
       .valid("Public", "Personal", "College", "Work")
-      .required().label("Category"),
+      .required()
+      .label("Category"),
     dueDate: Joi.date().required().label("Due Date"),
   });
 
@@ -32,10 +35,8 @@ const AddNote = () => {
     console.log(error);
     if (error) {
       setError(error.details[0].message);
-      const formErrors = {};
       for (const err of error.details) {
         toast(err.message);
-        formErrors[err.path[0]] = err.message;
       }
       return;
     }
@@ -43,95 +44,81 @@ const AddNote = () => {
     // Add Task logic
     createTask(tasks.description, tasks.category, tasks.dueDate);
     toast("Task Created !!");
-    console.log(tasks);
     setTask({
       description: "",
       category: "Public",
-      dueDate: "",
+      dueDate: new Date(),
     });
     setError("");
-    console.log(tasks);
   };
 
-  const onChange = (e) => {
-      const { name, value } = e.target;
+  const handleDateChange = (date) => {
+    const selectedDate = new Date(date);
+    const today = new Date();
 
-      // Special handling for dueDate to check if it's greater than today
-      if (name === "dueDate") {
-        const selectedDate = new Date(value);
-        const today = new Date();
+    if (selectedDate <= today) {
+      toast("Due date must be greater than today");
+      return;
+    }
 
-        if (selectedDate <= today) {
-          toast("Due date must be greater than today");
-          return;
-        }
-      }
-
-      setTask({ ...tasks, [name]: value });
-      setError("");
-
+    setTask({ ...tasks, dueDate: date });
+    setError("");
   };
+
   return (
-    <div className="container">
-      <form className="my-3" onSubmit={handleSubmit}>
+    <div className="container mt-5">
+      <form className="my-3 p-4 border rounded" onSubmit={handleSubmit}>
+        <h2 className="mb-4">Add a New Task</h2>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
           </label>
-          <input
-            type="text"
+          <textarea
+            rows="4"
             className="form-control"
             id="description"
             name="description"
-            onChange={onChange}
+            onChange={(e) => setTask({ ...tasks, description: e.target.value })}
             minLength={5}
             value={tasks.description}
-          />
+          ></textarea>
         </div>
         <div className="mb-3">
-          <label
-            htmlFor="category"
-            className="form-input form-label mb-2"
-            id="category"
-          >
+          <label htmlFor="category" className="form-label mb-2" id="category">
             Category
           </label>
           <select
-            type="text"
             id="category"
             name="category"
-            placeholder="Choose a category"
             className="form-select"
             value={tasks.category}
-            onChange={onChange}
+            onChange={(e) => setTask({ ...tasks, category: e.target.value })}
           >
             <option value="Personal">Personal</option>
-            <option value="Public" defaultChecked>
-              Public
-            </option>
+            <option value="Public">Public</option>
             <option value="College">College</option>
             <option value="Work">Work</option>
           </select>
         </div>
         <div className="mb-3">
-          <label
-            htmlFor="dueDate"
-            className="form-input form-label"
-            id="dueDate"
-          >
-            Due Date
+          <label htmlFor="dueDate" className="form-label me-2" id="dueDate">
+            Due Date and Time
           </label>
-          <input
-            type="date"
-            value={tasks.dueDate}
-            onChange={onChange}
-            id="dueDate"
-            style={{ display: "block" }}
-            name="dueDate"
-          />
+          <div>
+            <DatePicker
+              selected={tasks.dueDate}
+              onChange={handleDateChange}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={15}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              className="form-control"
+              style={{ width: "217px" }}
+            />
+          </div>
         </div>
         <button type="submit" className="btn btn-primary">
-          Add task
+          Add Task
         </button>
       </form>
     </div>

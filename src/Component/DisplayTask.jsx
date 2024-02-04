@@ -23,14 +23,14 @@ function DisplayTask() {
     // eslint-disable-next-line
   }, []);
 
-  // console.log("TASKS : ", Tasks.tasks);
+  // console.log("TASKS : ", Tasks);
   return (
     <>
  
       <div className="container mt-5">
         <div className="row">
-          {Tasks.tasks && Tasks.tasks.length > 0 ? (
-            Tasks.tasks.map((t) => {
+          {Tasks && Tasks.length > 0 ? (
+            Tasks.map((t) => {
               return (
                 <div className="col-md-4">
                   <TaskList
@@ -40,6 +40,7 @@ function DisplayTask() {
                     deadline={t.dueDate}
                     user={t.user}
                     idOfTask={t._id}
+                    creationDate={t.createdAt}
                   />
                 </div>
               );

@@ -2,29 +2,27 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className="about-us container">
-      <h1 className="my-4">About Us</h1>
+    <div className="container mt-5">
+      <h2 className="mb-4">About Us</h2>
       <p>
-        Welcome to our website! We are a team of passionate developers who love
-        building amazing web applications with React. Our goal is to create
-        user-friendly and visually appealing websites that provide great user
-        experiences.
+        Welcome to our To-Do website! We are dedicated to providing a simple and
+        effective platform to help you organize your tasks and manage your
+        day-to-day activities.
       </p>
+
       <p>
-        Our team is committed to staying up-to-date with the latest web
-        development trends and technologies. We believe in continuous learning
-        and are always looking for ways to improve our skills and create better
-        products for our users.
+        Our mission is to make task management easy and accessible for everyone.
+        Whether you're a student, professional, or someone who loves staying
+        organized, our to-do website is designed to meet your needs.
       </p>
-      <p>
-        If you have any questions or feedback about our website or any of our
-        projects, please don't hesitate to contact us. We would love to hear
-        from you and are always open to new ideas and suggestions.
-      </p>
-      <p>
-        Thank you for visiting our website, and we hope you enjoy using our
-        applications as much as we enjoyed building them!
-      </p>
+
+      <h4>Key Features:</h4>
+      <ul>
+        <li>Easy task creation and management</li>
+        <li>Customizable categories for better organization</li>
+        <li>Deadline tracking to stay on top of your schedule</li>
+        <li>User-friendly interface for a seamless experience</li>
+      </ul>
     </div>
   );
 };

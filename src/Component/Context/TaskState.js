@@ -18,7 +18,7 @@ const TaskState = (props) => {
         // console.log("Task : ",task.tasks)
         // const Fetchtasks = Tasks.concat(task)
         // console.log(Fetchtasks);
-        setTasks(task);
+        setTasks(task.tasks);
     };
 
     useEffect(() => {
@@ -36,8 +36,7 @@ const TaskState = (props) => {
             body: JSON.stringify({ description, category, dueDate }),
         });
         const task = await response.json();
-        console.log(task);
-        console.log(Tasks.concat(task))
+        console.log(dueDate);
         setTasks(Tasks.concat(task));
     }
 

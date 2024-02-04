@@ -3,7 +3,14 @@ import deleteIcon from "../assets/icons/Delete.png";
 import taskContext from "./Context/TaskContext";
 import { toast } from "react-toastify";
 
-function Tasks({ idOfTask, description, user, category, deadline }) {
+function Tasks({
+  idOfTask,
+  description,
+  user,
+  category,
+  deadline,
+  creationDate,
+}) {
   const context = useContext(taskContext);
   const { editTask, Tasks, deleteTask } = context;
   const ref = useRef(null);
@@ -40,6 +47,18 @@ function Tasks({ idOfTask, description, user, category, deadline }) {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+    const formatCreatedAtDate = (date) => {
+      const options = {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+      };
+      return new Date(date).toLocaleString("en-US", options);
+    };
 
 
   return (
@@ -144,7 +163,7 @@ function Tasks({ idOfTask, description, user, category, deadline }) {
 
       <div className="card mb-5" id={user}>
         <div className="card-header" style={{ position: "relative" }}>
-          <span style={{ width: 30 }}>{category}</span>
+          <span className="badge bg-primary me-2 p-2">{category}</span>
           <span>
             <i
               className="far fa-edit my-1 fa-lg"
@@ -181,8 +200,18 @@ function Tasks({ idOfTask, description, user, category, deadline }) {
           </span>
         </div>
         <div className="card-body">
-          <h5 className="card-category">{description}</h5>
-          <p className="card-text">Deadline - {deadline}</p>
+          <h5
+            className="card-category"
+            style={{ margin: "10px 0", borderBottom: "1px solid #ccc", paddingBottom: "20px" }}
+          >
+            {description}
+          </h5>
+          <p className="card-text mb-0">
+            Deadline - {formatCreatedAtDate(deadline)}
+          </p>
+          <p className="card-text">
+            Created At - {formatCreatedAtDate(creationDate)}
+          </p>
         </div>
       </div>
     </>

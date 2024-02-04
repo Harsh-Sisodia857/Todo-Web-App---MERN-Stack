@@ -1,10 +1,9 @@
-import React from 'react'
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  let location = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,44 +15,74 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
+          <NavLink className="navbar-brand" to="/" exact>
             Todo
-          </Link>
+          </NavLink>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
-                  Home
-                </Link>
+                <NavLink
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/"
+                  exact
+                >
+                  Pending Task
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/about">
-                  About Todo
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/user/createtask">
+                <NavLink
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/user/createtask"
+                >
                   Create Task
-                </Link>
+                </NavLink>
               </li>
             </ul>
             {!localStorage.getItem("token") ? (
               <div className="d-flex">
-                <Link
+    
+                  <NavLink
+                    className="nav-link"
+                    activeClassName="active"
+                    to="/about"
+                  >
+                    About Todo
+                  </NavLink>                 
+                <NavLink
                   to="auth/login"
                   role="button"
                   className="mx-2 btn btn-primary"
                 >
                   Log In
-                </Link>
-                <Link to="/auth/signup" role="button" className="mx-2 btn btn-primary">
+                </NavLink>
+                <NavLink
+                  to="/auth/signup"
+                  role="button"
+                  className="mx-2 btn btn-primary"
+                >
                   Sign Up
-                </Link>
+                </NavLink>
               </div>
             ) : (
-              <button className=" btn btn-primary" onClick={handleLogout}>
-                Log Out
-              </button>
+              <div className="d-flex">
+                  <div>
+                  <NavLink
+                    className="nav-link"
+                    activeClassName="active"
+                    style={{ color: "rgba(255,255,255,.55)" }}
+                    to="/about"
+                  >
+                    About Todo
+                  </NavLink>
+                </div>
+                <div>
+                  <button className=" btn btn-primary" onClick={handleLogout}>
+                    Log Out
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -62,4 +91,4 @@ function Navbar() {
   );
 }
 
-export default Navbar
+export default Navbar;
