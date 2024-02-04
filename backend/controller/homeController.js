@@ -7,6 +7,7 @@ module.exports.home = function (req, res) {
             console.log("Error in fetching the tasks from db");
             return;
         }
+        console.log(tasks)
         return res.json({tasks})
         // return res.render('index', {
         //     title: "To do",

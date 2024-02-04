@@ -13,11 +13,16 @@ const TodoSchema = new Schema({
     dueDate: {
         type: String,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
-})
+});
 
-const Todo = mongoose.model("TodoList", TodoSchema)
+const Todo = mongoose.model("TodoList", TodoSchema);
 module.exports = Todo;
