@@ -17,7 +17,10 @@ const TodoSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    
+    isCompleted: {
+        type: Boolean,
+        default: false
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

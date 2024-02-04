@@ -16,6 +16,26 @@ module.exports.home = function (req, res) {
     })
 };
 
+module.exports.isCompleted = async function (req, res) {
+    let task = await Todo.findById(req.params.id);
+    if (!task) { return res.status(404).send("Task Not Found") }
+    return res.status(200).json({
+        isComplete: task.isCompleted
+    })
+}
+
+module.exports.toggleStatus = async function (req, res) {
+    try {
+        let task = await Todo.findById(req.params.id);
+        if (!task) { return res.status(404).send("Task Not Found") }
+        task.isCompleted = !task.isCompleted;
+        await task.save();
+        return res.json({ task });
+    } catch (err) {
+        return res.status(500).send("Internal Server Error");
+   }
+}
+
 module.exports.createTask =async (req, res) => {
     try {
         const task = await Todo.create({

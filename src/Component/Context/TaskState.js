@@ -22,7 +22,7 @@ const TaskState = (props) => {
     };
 
     useEffect(() => {
-        fetchTasks()
+        fetchTasks();
     }, [Tasks]);
 
     const createTask = async (description, category, dueDate) => {
@@ -92,8 +92,20 @@ const TaskState = (props) => {
         setTasks(newTasks);
     };
 
+    const toggleColor = async (id) => {
+        const response = await fetch(`http://localhost:5000/user/isComplete/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("token"),
+            },
+        })
+        const json = await response.json();
+        console.log(json);
+    }
+
     return (
-        <TaskContext.Provider value={{ Tasks, deleteTask, fetchTasks, editTask, createTask }}>
+        <TaskContext.Provider value={{ Tasks, deleteTask, fetchTasks, editTask, createTask, toggleColor }}>
             {props.children}
         </TaskContext.Provider>
 

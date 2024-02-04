@@ -1,0 +1,29 @@
+.tick-container {
+  position: relative;
+}
+
+.tick {
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.tick.colored {
+  color: green; 
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.tick-container.animate .tick.colored {
+  animation: bounce 0.5s;
+}

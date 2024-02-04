@@ -23,6 +23,8 @@ router.get('/', fetchuser, async (req, res) => {
 
 router.post('/createtask', fetchuser, homeController.createTask)
 router.post('/deletetask', fetchuser, homeController.deleteTask)
-router.put('/updatetask/:id', fetchuser,homeController.updateTask)
+router.put('/updatetask/:id', fetchuser, homeController.updateTask)
+router.get('/isComplete/:id',fetchuser,homeController.isCompleted)
+router.put('/isComplete/:id',fetchuser,homeController.toggleStatus)
 
 module.exports = router;

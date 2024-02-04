@@ -1,7 +1,12 @@
-import React, { useContext, useRef,useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import { Modal, Button, Form, Col } from "react-bootstrap";
 import deleteIcon from "../assets/icons/Delete.png";
 import taskContext from "./Context/TaskContext";
 import { toast } from "react-toastify";
+import TickMark from "./Tick/Tick";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "../App.css";
 
 function Tasks({
   idOfTask,
@@ -10,199 +15,110 @@ function Tasks({
   category,
   deadline,
   creationDate,
+  isColor,
 }) {
   const context = useContext(taskContext);
-  const { editTask, Tasks, deleteTask } = context;
+  const { editTask, Tasks, deleteTask, toggleColor } = context;
   const ref = useRef(null);
-  const refClose = useRef(null);
-  const [id, setId] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    edescription: description,
-    ecategory: category,
-    edueDate: deadline,
-  });
-  const handleClick = (e) => {
-    editTask(id, formData.edescription, formData.ecategory, formData.edueDate);
+  const [editedDescription, setEditedDescription] = useState(description);
+  const [editedCategory, setEditedCategory] = useState(category);
+  const [editedDueDate, setEditedDueDate] = useState(new Date(deadline));
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
+  const handleClick = () => {
+    console.log("HANDLE CLICK");
+    console.log("ID: ", idOfTask);
+    editTask(idOfTask, editedDescription, editedCategory, editedDueDate);
     toast("Task Updated");
-    refClose.current.click();
+    handleClose();
   };
 
   const handleShowModal = (id) => {
-    ref.current.click();
-    // Find the task with the specified id in the Tasks array
-    const taskToUpdate = Tasks.tasks.find((task) => task._id === id);
-    console.log("taskToUpdate : ", taskToUpdate);
+    const taskToUpdate = Tasks.find((task) => task._id === id);
     if (taskToUpdate) {
-      setFormData({
-        edescription: taskToUpdate.description,
-        ecategory: taskToUpdate.category,
-        edueDate: taskToUpdate.dueDate,
-      });
-      setId(id);
-      setShowModal(true);
+      setEditedDescription(taskToUpdate.description);
+      setEditedCategory(taskToUpdate.category);
+      setEditedDueDate(new Date(taskToUpdate.dueDate));
+      handleShow();
     }
   };
 
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-    const formatCreatedAtDate = (date) => {
-      const options = {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-      };
-      return new Date(date).toLocaleString("en-US", options);
+  const formatCreatedAtDate = (date) => {
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
     };
-
+    return new Date(date).toLocaleString("en-US", options);
+  };
 
   return (
     <>
-      <button
-        ref={ref}
-        type="button"
-        className="btn btn-primary d-none"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        Launch demo modal
-      </button>
-
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-category" id="exampleModalLabel">
-                Edit Task
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <form className="my-3">
-                <div className="mb-3">
-                  <select
-                    type="text"
-                    id="ecategory"
-                    name="ecategory"
-                    placeholder="Choose a category"
-                    className="form-select"
-                    value={formData.ecategory}
-                    onChange={onChange}
-                  >
-                    <option value="Personal">Personal</option>
-                    <option value="Public">Public</option>
-                    <option value="College">College</option>
-                    <option value="Work">Work</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="edescription" className="form-label">
-                    Description
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="edescription"
-                    name="edescription"
-                    onChange={onChange}
-                    value={formData.edescription}
-                    minLength={5}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="edueDate" className="form-input form-label">
-                    Due Date
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.edueDate}
-                    onChange={onChange}
-                    id="edueDate"
-                    style={{ display: "block" }}
-                    name="edueDate"
-                  />
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-                ref={refClose}
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                onClick={handleClick}
-                className="btn btn-primary"
-              >
-                Update Task
-              </button>
-            </div>
+      <div className={`card mb-5 ${isColor ? "completed-task" : ""}`} id={user}>
+        <div className="card-header d-flex" style={{ position: "relative" }}>
+          <div>
+            <span className="me-2">
+              <TickMark
+                onClick={() => {
+                  toggleColor(idOfTask);
+                }}
+                colored={isColor}
+              />
+            </span>
+            <span className="badge bg-primary p-2">{category}</span>
           </div>
-        </div>
-      </div>
 
-      <div className="card mb-5" id={user}>
-        <div className="card-header" style={{ position: "relative" }}>
-          <span className="badge bg-primary me-2 p-2">{category}</span>
-          <span>
-            <i
-              className="far fa-edit my-1 fa-lg"
-              onClick={() => handleShowModal(idOfTask)}
-              style={{
-                width: 30,
-                height: 30,
-                display: "inline-block",
-                position: "absolute",
-                right: 40,
-                cursor: "pointer",
-                paddingRight: 40,
-              }}
-            ></i>
-          </span>
-          <span>
-            <img
-              src={deleteIcon}
-              id={idOfTask}
-              alt="Delete Task"
-              onClick={() => {
-                deleteTask(idOfTask);
-              }}
-              style={{
-                width: 30,
-                height: 30,
-                display: "inline-block",
-                position: "absolute",
-                right: 11,
-                bottom: 5,
-                cursor: "pointer",
-              }}
-            />
-          </span>
+          <div>
+            <span>
+              <i
+                className="far fa-edit my-1 fa-lg"
+                onClick={() => handleShowModal(idOfTask)}
+                style={{
+                  width: 30,
+                  height: 30,
+                  display: "inline-block",
+                  position: "absolute",
+                  right: 40,
+                  cursor: "pointer",
+                  paddingRight: 40,
+                }}
+              ></i>
+            </span>
+            <span>
+              <img
+                src={deleteIcon}
+                id={idOfTask}
+                alt="Delete Task"
+                onClick={() => {
+                  deleteTask(idOfTask);
+                }}
+                style={{
+                  width: 30,
+                  height: 30,
+                  display: "inline-block",
+                  position: "absolute",
+                  right: 11,
+                  bottom: 5,
+                  cursor: "pointer",
+                }}
+              />
+            </span>
+          </div>
         </div>
         <div className="card-body">
           <h5
             className="card-category"
-            style={{ margin: "10px 0", borderBottom: "1px solid #ccc", paddingBottom: "20px" }}
+            style={{
+              margin: "10px 0",
+              borderBottom: "1px solid #ccc",
+              paddingBottom: "20px",
+            }}
           >
             {description}
           </h5>
@@ -214,6 +130,57 @@ function Tasks({
           </p>
         </div>
       </div>
+
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Task</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="ecategory">
+              <Form.Label>Category</Form.Label>
+              <Form.Select
+                value={editedCategory}
+                onChange={(e) => setEditedCategory(e.target.value)}
+              >
+                <option value="Personal">Personal</option>
+                <option value="College">College</option>
+                <option value="Work">Work</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="edescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                value={editedDescription}
+                onChange={(e) => setEditedDescription(e.target.value)}
+                minLength={5}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="edueDate">
+              <Form.Label>Due Date</Form.Label>
+              <DatePicker
+                selected={editedDueDate}
+                onChange={(date) => setEditedDueDate(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="MMMM d, yyyy h:mm aa"
+                className="form-control"
+                style={{ width: "100%" }}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClick}>
+            Update Task
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

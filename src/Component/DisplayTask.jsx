@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function DisplayTask() {
   const context = useContext(TaskContext);
-  const { editTask, Tasks, fetchTasks } = context;
+  const { Tasks, fetchTasks } = context;
 
   const navigate = useNavigate();
 
@@ -24,9 +24,9 @@ function DisplayTask() {
   }, []);
 
   // console.log("TASKS : ", Tasks);
+
   return (
     <>
- 
       <div className="container mt-5">
         <div className="row">
           {Tasks && Tasks.length > 0 ? (
@@ -41,6 +41,7 @@ function DisplayTask() {
                     user={t.user}
                     idOfTask={t._id}
                     creationDate={t.createdAt}
+                    isColor={t.isCompleted}
                   />
                 </div>
               );

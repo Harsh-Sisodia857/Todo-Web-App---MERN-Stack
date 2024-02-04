@@ -10,7 +10,7 @@ const AddNote = () => {
   const context = useContext(TaskContext);
   const [tasks, setTask] = useState({
     description: "",
-    category: "Public",
+    category: "Personal",
     dueDate: new Date(),
   });
 
@@ -21,7 +21,7 @@ const AddNote = () => {
   const schema = Joi.object({
     description: Joi.string().min(5).required().label("Description"),
     category: Joi.string()
-      .valid("Public", "Personal", "College", "Work")
+      .valid("Personal", "College", "Work")
       .required()
       .label("Category"),
     dueDate: Joi.date().required().label("Due Date"),
@@ -46,7 +46,7 @@ const AddNote = () => {
     toast("Task Created !!");
     setTask({
       description: "",
-      category: "Public",
+      category: "Personal",
       dueDate: new Date(),
     });
     setError("");
@@ -95,7 +95,6 @@ const AddNote = () => {
             onChange={(e) => setTask({ ...tasks, category: e.target.value })}
           >
             <option value="Personal">Personal</option>
-            <option value="Public">Public</option>
             <option value="College">College</option>
             <option value="Work">Work</option>
           </select>
