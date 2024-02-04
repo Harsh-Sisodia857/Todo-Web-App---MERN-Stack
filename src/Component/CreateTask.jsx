@@ -65,63 +65,77 @@ const AddNote = () => {
     setError("");
   };
 
-  return (
-    <div className="container mt-5">
-      <form className="my-3 p-4 border rounded" onSubmit={handleSubmit}>
-        <h2 className="mb-4">Add a New Task</h2>
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">
-            Description
-          </label>
-          <textarea
-            rows="4"
-            className="form-control"
-            id="description"
-            name="description"
-            onChange={(e) => setTask({ ...tasks, description: e.target.value })}
-            minLength={5}
-            value={tasks.description}
-          ></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="category" className="form-label mb-2" id="category">
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            className="form-select"
-            value={tasks.category}
-            onChange={(e) => setTask({ ...tasks, category: e.target.value })}
-          >
-            <option value="Personal">Personal</option>
-            <option value="College">College</option>
-            <option value="Work">Work</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="dueDate" className="form-label me-2" id="dueDate">
-            Due Date and Time
-          </label>
-          <div>
-            <DatePicker
-              selected={tasks.dueDate}
-              onChange={handleDateChange}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="MMMM d, yyyy h:mm aa"
-              className="form-control"
-              style={{ width: "217px" }}
-            />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Add Task
-        </button>
-      </form>
-    </div>
-  );
+   return (
+     <div className="container mt-5">
+       <form
+         className="my-3 p-4 border rounded classic-background"
+         onSubmit={handleSubmit}
+       >
+         <h2 className="mb-4">Add a New Task</h2>
+         <div className="mb-3" style={{ textAlign: "left" }}>
+           <label htmlFor="description" className="form-label text-start">
+             Description
+           </label>
+           <textarea
+             rows="4"
+             className="form-control"
+             id="description"
+             name="description"
+             onChange={(e) =>
+               setTask({ ...tasks, description: e.target.value })
+             }
+             minLength={5}
+             value={tasks.description}
+           ></textarea>
+         </div>
+         <div className="mb-3" style={{ textAlign: "left" }}>
+           <label
+             htmlFor="category"
+             className="form-label mb-2 text-start"
+             id="category"
+           >
+             Category
+           </label>
+           <select
+             id="category"
+             name="category"
+             className="form-select"
+             value={tasks.category}
+             onChange={(e) => setTask({ ...tasks, category: e.target.value })}
+           >
+             <option value="Personal">Personal</option>
+             <option value="College">College</option>
+             <option value="Work">Work</option>
+           </select>
+         </div>
+         <div className="mb-3" style={{ textAlign: "left" }}>
+           <label
+             htmlFor="dueDate"
+             className="form-label me-2 text-start"
+             id="dueDate"
+           >
+             Due Date and Time
+           </label>
+           <div>
+             <DatePicker
+               selected={tasks.dueDate}
+               onChange={handleDateChange}
+               showTimeSelect
+               timeFormat="HH:mm"
+               timeIntervals={15}
+               dateFormat="MMMM d, yyyy h:mm aa"
+               className="form-control"
+               style={{ width: "217px" }}
+             />
+           </div>
+         </div>
+         <button type="submit" className="btn btn-primary">
+           Add Task
+         </button>
+       </form>
+     </div>
+   );
+
 };
 
 export default AddNote;

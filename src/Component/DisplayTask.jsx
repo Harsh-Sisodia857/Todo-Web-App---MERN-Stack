@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import TaskList from "./TaskList";
 import "react-toastify/dist/ReactToastify.css";
 import TaskContext from "./Context/TaskContext";
