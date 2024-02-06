@@ -53,7 +53,7 @@ const TaskState = (props) => {
             }
         );
         const json = await response.json();
-        const newTasks = Tasks.tasks.filter((note) => { return note._id !== id });
+        const newTasks = Tasks.filter((note) => { return note._id !== id });
         toast("Task is Deleted")
         console.log(newTasks)
         setTasks(newTasks);
@@ -101,6 +101,12 @@ const TaskState = (props) => {
             },
         })
         const json = await response.json();
+        console.log(json)
+        if (json.task.isCompleted) {
+            toast("Congratulations !! You have Completed a task");
+        } else {
+            toast("Task is Unmarked");
+        }
         console.log(json);
     }
 

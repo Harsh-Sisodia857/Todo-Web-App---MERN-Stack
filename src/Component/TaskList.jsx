@@ -29,7 +29,6 @@ function Tasks({
   const handleShow = () => setShowModal(true);
 
   const handleClick = () => {
-    console.log("HANDLE CLICK");
     console.log("ID: ", idOfTask);
     editTask(idOfTask, editedDescription, editedCategory, editedDueDate);
     toast("Task Updated");

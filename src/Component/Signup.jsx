@@ -15,7 +15,7 @@ const Signup = () => {
     e.preventDefault();
     const { name, email, password, cpassword } = credential;
     if (password !== cpassword) {
-        toast("Password does not match");
+      toast("Passwords do not match");
     } else {
       const response = await fetch("http://localhost:5000/auth/signup", {
         method: "POST",
@@ -32,12 +32,12 @@ const Signup = () => {
       console.log(json);
       if (json.success) {
         localStorage.setItem("token", json.authToken);
-        toast("Sign up Successfully");
+        toast("Signed up Successfully");
         navigate("/");
       } else {
         toast.error(json.error);
         if (json.error === "User with this email exists") {
-            navigate("/auth/login");
+          navigate("/auth/login");
         }
       }
     }
@@ -45,71 +45,80 @@ const Signup = () => {
   const onChange = (e) => {
     setCredential({ ...credential, [e.target.name]: e.target.value });
   };
+
   return (
     <div className="container">
-          <form onSubmit={handleSubmit}>
-             
-        <div className="mb-3 my-4 form-group">
-          <label htmlFor="name" className="form-label">
-            Name
-          </label>
-          <input
-            onChange={onChange}
-            type="text"
-            className="form-control"
-            id="name"
-            aria-describedby="emailHelp"
-            name="name"
-            required
-          />
-        </div>
-        <div className="mb-3 my-4">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            onChange={onChange}
-            type="email"
-            className="form-control"
-            id="email"
-            aria-describedby="emailHelp"
-            name="email"
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            onChange={onChange}
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            minLength={5}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="cpassword" className="form-label">
-            Confirm Password
-          </label>
-          <input
-            onChange={onChange}
-            type="password"
-            className="form-control"
-            id="cpassword"
-            name="cpassword"
-            minLength={5}
-            required
-          />
-        </div>
+      <div className="row justify-content-center mt-5">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title text-center mb-4">Sign Up</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
+                  <input
+                    onChange={onChange}
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Email address
+                  </label>
+                  <input
+                    onChange={onChange}
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
+                  <input
+                    onChange={onChange}
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    minLength={5}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="cpassword" className="form-label">
+                    Confirm Password
+                  </label>
+                  <input
+                    onChange={onChange}
+                    type="password"
+                    className="form-control"
+                    id="cpassword"
+                    name="cpassword"
+                    minLength={5}
+                    required
+                  />
+                </div>
 
-        <button type="submit" className="btn btn-primary">
-          Signup
-        </button>
-      </form>
+                <div className="d-grid">
+                  <button type="submit" className="btn btn-primary">
+                    Sign Up
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

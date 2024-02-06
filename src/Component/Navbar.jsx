@@ -11,6 +11,8 @@ function Navbar() {
     navigate("/auth/login");
   };
 
+  const isLoggedIn = localStorage.getItem("token");
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -20,36 +22,39 @@ function Navbar() {
           </NavLink>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  activeClassName="active"
-                  to="/"
-                  exact
-                >
-                  Pending Task
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  activeClassName="active"
-                  to="/user/createtask"
-                >
-                  Create Task
-                </NavLink>
-              </li>
+              {isLoggedIn && (
+                <>
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      activeClassName="active"
+                      to="/"
+                      exact
+                    >
+                       Tasks
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      activeClassName="active"
+                      to="/user/createtask"
+                    >
+                      Create Task
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </ul>
-            {!localStorage.getItem("token") ? (
+            {!isLoggedIn ? (
               <div className="d-flex">
-    
-                  <NavLink
-                    className="nav-link"
-                    activeClassName="active"
-                    to="/about"
-                  >
-                    About Todo
-                  </NavLink>                 
+                <NavLink
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/about"
+                >
+                  About Todo
+                </NavLink>
                 <NavLink
                   to="auth/login"
                   role="button"
@@ -67,7 +72,7 @@ function Navbar() {
               </div>
             ) : (
               <div className="d-flex">
-                  <div>
+                <div>
                   <NavLink
                     className="nav-link"
                     activeClassName="active"
