@@ -48,11 +48,20 @@ Start the frontend development server using npm start in the frontend directory.
 
 ## How to Run:
 
-Clone the repository.
+Mongodb Atlas Setup.
+You need to create an account to Mongodb Atlas for database purpose
+After creating Account, create collection - Todo ( Ensure You Enable Your IP Address)
+Copy the Mongodb URI String and place it to backend/.env file
+DB_URI = YOUR_CONNECTION_STRING
 
+
+Clone the repository.
 ```bash
   1) Navigate to the frontend and backend directories and run npm  install to install dependencies.
   2) Start the backend server using npm start in the backend directory.
   3) Start the frontend development server using npm start in the frontend and backend directory.
 ```
-    
+
+Commands :
+Terminal 1 - cd backend -> npm i -> npm start
+Terminal 2 - npm i -> npm start
